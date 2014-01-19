@@ -8,8 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate> {
+    NSMutableArray *_searchArray;
+    NSArray *_filtered;
+}
 
+@property NSArray *filtered;
 @property (assign) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSSearchField *serachField;
+@property (weak) IBOutlet NSTableView *tableView;
 
 @end
