@@ -34,6 +34,10 @@
 
     
 }
+- (IBAction)addShow:(id)sender {
+    NSButton *button = (NSButton *)sender;
+    NSLog(@"Add show %@", [[_filtered objectAtIndex:[_tableView rowForView:button.superview]] valueForKey:@"title"]);
+}
 
 - (IBAction)searchName:(id)sender {
     if (_filtered != nil) {
