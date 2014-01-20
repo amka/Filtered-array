@@ -14,12 +14,12 @@
     self =[super init];
      if (self) {
          _searchArray = [NSMutableArray arrayWithObjects:
-                         @{@"title": @"Sleepy Hollow"},
-                         @{@"title": @"Black List"},
-                         @{@"title": @"White Collar"},
-                         @{@"title": @"Criminal Minds"},
-                         @{@"title": @"Suits"},
-                         @{@"title": @"Blue Blood"},
+                         @{@"title": @"Sleepy Hollow", @"ru": @"Сонная лощина"},
+                         @{@"title": @"Black List", @"ru": @"Чёрный список"},
+                         @{@"title": @"White Collar", @"ru": @"Белый воротничок"},
+                         @{@"title": @"Criminal Minds", @"ru": @"Мыслить как преступник"},
+                         @{@"title": @"Suits", @"ru": @"Костюмы"},
+                         @{@"title": @"Blue Blood", @"ru": @"Голубая кровь"},
                          nil];
          _filtered = [NSMutableArray arrayWithArray:_searchArray];
      }
@@ -46,7 +46,7 @@
         return [_tableView reloadData];;
     }
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K CONTAINS[cd] %@", @"title", [_serachField stringValue]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K CONTAINS[cd] %@) or (%K CONTAINS[cd] %@)", @"title", [_serachField stringValue], @"ru", [_serachField stringValue]];
     _filtered = [NSMutableArray arrayWithArray:[_searchArray filteredArrayUsingPredicate:predicate]];
     [_tableView reloadData];
 }
@@ -60,8 +60,8 @@
 {
     NSTableCellView *tableCellView = [tableView makeViewWithIdentifier:@"tableView" owner:self];
     
-    tableCellView.textField.stringValue = [[_filtered objectAtIndex:row] valueForKey:@"title"];
-    [[tableCellView viewWithTag:1] setStringValue:@"Season 1, Episode 12"];
+    [[tableCellView viewWithTag:0] setStringValue:[[_filtered objectAtIndex:row] valueForKey:@"title"]];
+    [[tableCellView viewWithTag:1] setStringValue:[[_filtered objectAtIndex:row] valueForKey:@"ru"]];
     return tableCellView;
 }
 
